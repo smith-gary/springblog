@@ -12,20 +12,20 @@ import java.util.List;
 public class PostController {
 
     @GetMapping("/posts/index")
-    public List allPosts(Model model) {
+    public String allPosts(Model model) {
         List<Post> all = new ArrayList<>();
         all.add(new Post(1, "test", "body test"));
         all.add(new Post(2, "test2", "body test2"));
 
         model.addAttribute("allPosts", all);
-        return all;
+        return "posts/index";
     }
 
-    @GetMapping("/posts/show")
-    public Post postById(@PathVariable long id, Model model) {
+    @GetMapping("/posts/{id}")
+    public String postById(@PathVariable long id, Model model) {
         Post post1 = new Post(1, "test", "body test");
         model.addAttribute("post", post1);
-        return post1;
+        return "posts/show";
     }
 
     @GetMapping("/posts/create")

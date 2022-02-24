@@ -37,4 +37,22 @@ public class HomeController {
         }
         return "roll-dice";
     }
+
+    /// Instructor solve ///
+
+//    @GetMapping("/roll-dice")
+//    public String showOptions(){
+//        return "roll-dice";
+//    }
+//    @GetMapping("/roll-dice/{n}")
+//    public String showResult(@PathVariable int n, Model model){
+//        int randNum = (int) (Math.random() * 6) + 1;
+//        if(n == randNum) {
+//            model.addAttribute("result", "Correct!");
+//        } else {
+//            model.addAttribute("result", "Incorrect!");
+//        }
+//        return "roll-dice";
+//    }
+
 }
