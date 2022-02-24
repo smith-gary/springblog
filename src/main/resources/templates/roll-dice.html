@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Roll Dice</title>
+    <th:block th:include="partials/bootstrap :: styling"></th:block>
+
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+<form action="/roll-dice" method="post">
+    <label>Guess a number</label>
+    <button name="number" id="1" th:value="1">1</button>
+    <button name="number" id="2" th:value="2">2</button>
+    <button name="number" id="3" th:value="3">3</button>
+    <button name="number" id="4" th:value="4">4</button>
+    <button name="number" id="5" th:value="5">5</button>
+    <button name="number" id="6" th:value="6">6</button>
+</form>
+
+<h1 th:text="${correct}"></h1>
+<h1 th:text="${incorrect}"></h1>
+
+
+
+<th:block th:replace="partials/bootstrap :: scripts"></th:block>
+
+</body>
+</html>

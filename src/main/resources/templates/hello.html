@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <th:block th:include="partials/bootstrap :: styling"></th:block>
+
+</head>
+<body>
+<nav th:replace="partials/navbar :: navbar"></nav>
+
+  <h1>Hello, <span th:text="${name}">World</span>!</h1>
+
+<th:block th:replace="partials/bootstrap :: scripts"></th:block>
+
+</body>
+</html>

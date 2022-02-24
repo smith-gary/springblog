@@ -2,22 +2,30 @@ package com.codeup.springblog;
 
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
 
-    @GetMapping("/posts")
-    @ResponseBody
-    public String allPosts() {
-        return "Here are all the posts!";
+    @GetMapping("/posts/index")
+    public List allPosts(Model model) {
+        List<Post> all = new ArrayList<>();
+        all.add(new Post(1, "test", "body test"));
+        all.add(new Post(2, "test2", "body test2"));
+
+        model.addAttribute("allPosts", all);
+        return all;
     }
 
-    @GetMapping("/posts/{id}")
-    @ResponseBody
-    public String postById(@PathVariable long id) {
-        return "Here is the post from id: " + id;
-
+    @GetMapping("/posts/show")
+    public Post postById(@PathVariable long id, Model model) {
+        Post post1 = new Post(1, "test", "body test");
+        model.addAttribute("post", post1);
+        return post1;
     }
 
     @GetMapping("/posts/create")
