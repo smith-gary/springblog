@@ -1,6 +1,7 @@
 package com.codeup.springblog;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 // To kill other processes running on the designated server run
@@ -27,9 +28,9 @@ public class HelloController {
 
     //  Path variables w/strings
     @GetMapping("/hello/{name}")
-    @ResponseBody
-    public String sayHello(@PathVariable String name) {
-        return "Hello, " + name + "!";
+    public String sayHello(@PathVariable String name, Model model) {
+        model.addAttribute("name", name);
+        return "hello";
     }
 
     //  Path variables w/numbers and custom request mapping which is the longer version of get mapping
@@ -39,6 +40,15 @@ public class HelloController {
         return number + " plus one is " + (number + 1);
     }
 
+    @GetMapping("/join")
+    public String showJoinForm() {
+        return "join";
+    }
 
+    @PostMapping("/join")
+    public String joinCohort(@RequestParam(name = "cohort") String cohort, Model model) {
+        model.addAttribute("cohort", "Welcome to " + cohort + "!");
+        return "join";
+    }
 
 }
