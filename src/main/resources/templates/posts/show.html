@@ -9,8 +9,8 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 
-  <h2 th:text="${post.getTitle()}"></h2>
-  <p th:text="${post.getBody()}"></p>
+  <h3 th:text="${post.get().getTitle()}"></h3>
+  <p th:text="${post.get().getBody()}"></p>
 
 
 <th:block th:replace="partials/bootstrap :: scripts"></th:block>
