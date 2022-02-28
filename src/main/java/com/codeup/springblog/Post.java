@@ -1,11 +1,27 @@
 package com.codeup.springblog;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "posts")
 public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto increment, unsigned, not null
     private long id;
+
+    // can use 'name = "something" argument to establish a specific name that differs from the name of the field
+    @Column(nullable = false, length = 150)
     private String title;
+    // can use 'unique = true' argument to establish a unique constraint
+    @Column(nullable = false)
     private String body;
 
     public Post() {
+    }
+
+    public Post(String title, String body) {
+        this.title = title;
+        this.body = body;
     }
 
     public Post(long id, String title, String body) {
@@ -37,4 +53,6 @@ public class Post {
     public void setBody(String body) {
         this.body = body;
     }
+
+
 }

@@ -10,8 +10,8 @@
 <nav th:replace="partials/navbar :: navbar"></nav>
 
     <div th:each="post : ${allPosts}">
-        <h2 th:text="${post.title}"></h2>
-        <p th:text="${post.body}"></p>
+        <h3 th:text="${post.getTitle()}"></h3>
+        <p th:text="${post.getBody()}"></p>
     </div>
 
 <th:block th:replace="partials/bootstrap :: scripts"></th:block>
