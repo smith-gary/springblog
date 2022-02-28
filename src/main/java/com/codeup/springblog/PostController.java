@@ -2,6 +2,7 @@ package com.codeup.springblog;
 
 
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,11 @@ public class PostController {
 
     // Dependency Injection ///
     private PostRepository postDao;
+    private UserRepository userDao;
 
-    public PostController(PostRepository postDao){
+    public PostController(PostRepository postDao, UserRepository userDao) {
         this.postDao = postDao;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts/index")
@@ -31,7 +34,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String postById(@PathVariable long id, Model model) {
-        model.addAttribute("post", postDao.findById(id));
+        model.addAttribute("post", postDao.getById(id));
 //        Post post1 = new Post(1, "test", "body test");
 //        model.addAttribute("post", post1);
         return "posts/show";
@@ -44,7 +47,11 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        Post newPost = new Post(title, body);
+        User user = userDao.getById(1L);
+        Post newPost = new Post();
+        newPost.setTitle(title);
+        newPost.setBody(body);
+        newPost.setUser(user);
         postDao.save(newPost);
         return "redirect:/posts/index";
     }
