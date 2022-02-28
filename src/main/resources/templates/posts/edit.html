@@ -7,7 +7,7 @@
 
 </head>
 <body>
-<form th:action="@{/posts/${id}/edit(id = ${postEdit.getId()})}" th:method="post">
+<form th:action="@{/posts/{id}/edit(id = ${postEdit.getId()})}" th:method="post">
   <div class="form-group">
     <label for="title">Title</label>
     <input type="text" name="title" id="title" th:value="${postEdit.getTitle()}">
