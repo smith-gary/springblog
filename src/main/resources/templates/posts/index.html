@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <th:block th:include="partials/bootstrap :: styling"></th:block>
-
 </head>
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 
-    <div th:each="post : ${allPosts}">
-        <h3 th:text="${post.getTitle()}"></h3>
-        <p th:text="${post.getBody()}"></p>
+<div class="container mt-5" th:each="post : ${allPosts}">
+    <div class="card">
+        <div class="card-header">
+            <h3 th:text="${post.getTitle()}"></h3>
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <!--      <h3 th:text="${post.getTitle()}"></h3>-->
+                <p th:text="${post.getBody()}"></p>
+                <footer class="blockquote-footer"><cite title="Source Title"
+                                                        th:text="${post.getUser().getEmail()}"></cite></footer>
+            </blockquote>
+        </div>
     </div>
+</div>
 
 <th:block th:replace="partials/bootstrap :: scripts"></th:block>
-
 </body>
 </html>
