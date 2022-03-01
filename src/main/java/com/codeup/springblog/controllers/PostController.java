@@ -40,34 +40,42 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String postForm() {
+    public String postForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-        User user = userDao.getById(1L);
-        Post newPost = new Post();
-        newPost.setTitle(title);
-        newPost.setBody(body);
-        newPost.setUser(user);
-        postDao.save(newPost);
+//    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+    public String createPost(@ModelAttribute Post post) {
+//        User user = userDao.getById(1L);
+//        Post newPost = new Post();
+//        newPost.setTitle(title);
+//        newPost.setBody(body);
+//        newPost.setUser(user);
+//        postDao.save(newPost);
+
+        post.setUser(userDao.getById(1L));
+        postDao.save(post);
         return "redirect:/posts/index";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String editForm(@PathVariable long id, Model model) {
-        Post postEdit = postDao.getById(id);
-        model.addAttribute("postEdit", postEdit);
+//        model.addAttribute("post", new Post());
+        Post post = postDao.getById(id);
+        model.addAttribute("post", post);
         return "posts/edit";
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String submitEdit(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body, @PathVariable long id) {
-        Post postEdit = postDao.getById(id);
-        postEdit.setTitle(title);
-        postEdit.setBody(body);
-        postDao.save(postEdit);
+    public String submitEdit(@ModelAttribute Post post, @PathVariable long id) {
+        post.setId(id);
+        post.setUser(userDao.getById(1L));
+//        post.setTitle(post.getTitle());
+//        post.setBody(post.getBody());
+//        postEdit.setBody(body);
+        postDao.save(post);
         return "redirect:/posts/index";
     }
 
