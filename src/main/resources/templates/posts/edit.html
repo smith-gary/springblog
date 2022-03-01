@@ -8,22 +8,26 @@
 <body>
 <nav th:replace="partials/navbar :: navbar"></nav>
 
-<form class="container mt-5" th:action="@{/posts/{id}/edit(id = ${postEdit.getId()})}" th:method="post">
-    <div class="card">
+<form class="container mt-5" th:action="@{/posts/{id}/edit(id = ${post.getId()})}" th:method="post" th:object="${post}">
         <div class="card-header">
-            Create A Post
+            Edit A Post
         </div>
-        <div class="card-body">
-            <h5 class="card-title">Title:</h5>
-            <input type="text" name="title" th:value="${postEdit.getTitle()}">
-            <h5 class="card-text mt-3">Body:</h5>
-            <input type="text" name="body" th:value="${postEdit.getBody()}">
-            <div class="mt-3">
-                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-            </div>
-        </div>
+    <div th:replace="partials/form :: form">
     </div>
 </form>
+
+<!--        <div class="card-body">-->
+<!--            <h5 class="card-title">Title:</h5>-->
+<!--&lt;!&ndash;            th:value="${post.getTitle()}"&ndash;&gt;-->
+<!--            <input type="text" name="title"  th:field="*{title}">-->
+<!--            <h5 class="card-text mt-3">Body:</h5>-->
+<!--&lt;!&ndash;            th:value="${post.getBody()}"&ndash;&gt;-->
+<!--            <input type="text" name="body"  th:field="*{body}">-->
+<!--            <div class="mt-3">-->
+<!--                <button type="submit" class="btn btn-primary btn-sm">Submit</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
 <th:block th:replace="partials/bootstrap :: scripts"></th:block>
 </body>
