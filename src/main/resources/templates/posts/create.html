@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Create</title>
@@ -15,39 +16,6 @@
     <div th:replace="partials/form :: form">
     </div>
 </form>
-
-<!--<form class="container mt-5" th:action="@{/posts/create}" th:method="post">-->
-<!--    <div class="card">-->
-<!--        <div class="card-header">-->
-<!--            Create A Post-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">Title:</h5>-->
-<!--            <input type="text" name="title">-->
-<!--            <h5 class="card-text mt-3">Body:</h5>-->
-<!--            <input type="text" name="body">-->
-<!--            <div class="mt-3">-->
-<!--                <button type="submit" class="btn btn-primary btn-sm">Submit</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</form>-->
-
-<!--    <div class="card">-->
-<!--        <div class="card-header">-->
-<!--            Create A Post-->
-<!--        </div>-->
-<!--        <div class="card-body">-->
-<!--            <h5 class="card-title">Title:</h5>-->
-<!--            <input type="text" name="title" th:field="*{title}">-->
-<!--            <h5 class="card-text mt-3">Body:</h5>-->
-<!--            <input type="text" name="body" th:field="*{body}">-->
-<!--            <div class="mt-3">-->
-<!--                <button type="submit" class="btn btn-primary btn-sm">Submit</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-
 
 <th:block th:replace="partials/bootstrap :: scripts"></th:block>
 </body>
