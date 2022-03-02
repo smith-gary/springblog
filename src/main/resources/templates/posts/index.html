@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -15,7 +16,6 @@
         </div>
         <div class="card-body">
             <blockquote class="blockquote mb-0">
-                <!--      <h3 th:text="${post.getTitle()}"></h3>-->
                 <p th:text="${post.getBody()}"></p>
                 <footer class="blockquote-footer"><cite title="Source Title"
                                                         th:text="${post.getUser().getEmail()}"></cite></footer>

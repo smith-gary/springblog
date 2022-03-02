@@ -1,5 +1,6 @@
-package com.codeup.springblog.models;
+package com.codeup.springblog.services;
 
+import com.codeup.springblog.models.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
@@ -23,11 +24,9 @@ public class EmailService {
 //        msg.setTo("bob@bob.com");
         msg.setSubject(subject);
         msg.setText(body);
-
-        try{
+        try {
             this.emailSender.send(msg);
-        }
-        catch (MailException ex) {
+        } catch (MailException ex) {
             // simply log it and go on...
             System.err.println(ex.getMessage());
         }

@@ -1,11 +1,12 @@
 package com.codeup.springblog.controllers;
 
 
-import com.codeup.springblog.models.EmailService;
-import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
+import com.codeup.springblog.services.EmailService;
+import com.codeup.springblog.models.Post;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +28,12 @@ public class PostController {
     @GetMapping("/posts/index")
     public String allPosts(Model model) {
         model.addAttribute("allPosts", postDao.findAll());
-//        List<Post> all = new ArrayList<>();
-//        all.add(new Post(1, "test", "body test"));
-//        all.add(new Post(2, "test2", "body test2"));
-//        model.addAttribute("allPosts", all);
         return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String postById(@PathVariable long id, Model model) {
         model.addAttribute("post", postDao.getById(id));
-//        Post post1 = new Post(1, "test", "body test");
-//        model.addAttribute("post", post1);
         return "posts/show";
     }
 
@@ -49,36 +44,31 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-//    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
-    public String createPost(@ModelAttribute Post post) {
-//        User user = userDao.getById(1L);
-//        Post newPost = new Post();
-//        newPost.setTitle(title);
-//        newPost.setBody(body);
-//        newPost.setUser(user);
-//        postDao.save(newPost);
 
-        post.setUser(userDao.getById(1L));
-        emailService.prepareAndSend(post, "test", "this working or what?");
+    public String createPost(@ModelAttribute Post post) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(loggedInUser);
+        emailService.prepareAndSend(post, "Post Created", "You have just created a new post!");
         postDao.save(post);
         return "redirect:/posts/index";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String editForm(@PathVariable long id, Model model) {
-//        model.addAttribute("post", new Post());
         Post post = postDao.getById(id);
-        model.addAttribute("post", post);
-        return "posts/edit";
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (post.getUser().getId() == loggedInUser.getId()) {
+            model.addAttribute("post", post);
+            return "posts/edit";
+        } else {
+            return "redirect:/posts/index";
+        }
     }
 
     @PostMapping("/posts/{id}/edit")
     public String submitEdit(@ModelAttribute Post post, @PathVariable long id) {
         post.setId(id);
-        post.setUser(userDao.getById(1L));
-//        post.setTitle(post.getTitle());
-//        post.setBody(post.getBody());
-//        postEdit.setBody(body);
+        post.setUser(userDao.getById(id));
         postDao.save(post);
         return "redirect:/posts/index";
     }
