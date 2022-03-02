@@ -1,6 +1,7 @@
 package com.codeup.springblog.controllers;
 
 
+import com.codeup.springblog.models.EmailService;
 import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
@@ -15,10 +16,12 @@ public class PostController {
     // Dependency Injection ///
     private PostRepository postDao;
     private UserRepository userDao;
+    private EmailService emailService;
 
-    public PostController(PostRepository postDao, UserRepository userDao) {
+    public PostController(PostRepository postDao, UserRepository userDao, EmailService emailService) {
         this.postDao = postDao;
         this.userDao = userDao;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts/index")
@@ -56,6 +59,7 @@ public class PostController {
 //        postDao.save(newPost);
 
         post.setUser(userDao.getById(1L));
+        emailService.prepareAndSend(post, "test", "this working or what?");
         postDao.save(post);
         return "redirect:/posts/index";
     }
