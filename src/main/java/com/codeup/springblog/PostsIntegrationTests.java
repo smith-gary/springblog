@@ -66,7 +66,7 @@ public class PostsIntegrationTests {
                         .param("username", "testUser")
                         .param("password", "password"))
                 .andExpect(status().is(HttpStatus.FOUND.value()))
-                .andExpect(redirectedUrl("/posts/index"))
+                .andExpect(redirectedUrl("/posts"))
                 .andReturn()
                 .getRequest()
                 .getSession();
@@ -112,7 +112,7 @@ public class PostsIntegrationTests {
         Post existingPost = postDao.findAll().get(0);
 
         //get request to check for static text of index page and check if it has a title
-        this.mvc.perform(get("/posts/index"))
+        this.mvc.perform(get("/posts"))
                 .andExpect(status().isOk())
                 // tests static content
 //                .andExpect(content().string(containsString("Latest Posts")))

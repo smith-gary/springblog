@@ -25,7 +25,7 @@ public class PostController {
         this.emailService = emailService;
     }
 
-    @GetMapping("/posts/index")
+    @GetMapping("/posts")
     public String allPosts(Model model) {
         model.addAttribute("allPosts", postDao.findAll());
         return "posts/index";
@@ -50,7 +50,7 @@ public class PostController {
         post.setUser(loggedInUser);
         emailService.prepareAndSend(post, "Post Created", "You have just created a new post!");
         postDao.save(post);
-        return "redirect:/posts/index";
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -61,7 +61,7 @@ public class PostController {
             model.addAttribute("post", post);
             return "posts/edit";
         } else {
-            return "redirect:/posts/index";
+            return "redirect:/posts";
         }
     }
 
@@ -70,13 +70,13 @@ public class PostController {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(loggedInUser);
         postDao.save(post);
-        return "redirect:/posts/index";
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
         postDao.deleteById(id);
-        return "redirect:/posts/index";
+        return "redirect:/posts";
     }
 
 }
