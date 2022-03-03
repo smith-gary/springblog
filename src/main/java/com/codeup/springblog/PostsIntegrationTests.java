@@ -101,7 +101,7 @@ public class PostsIntegrationTests {
         Post existingPost = postDao.findAll().get(0);
 
         // get request to /posts/{id} and expect redirect to post show page
-        this.mvc.perform(get("/posts/" + existingPost.getId()))
+        this.mvc.perform(get("/posts/" + existingPost.getId()).session((MockHttpSession) httpSession))
                 .andExpect(status().isOk())
                 // test the dynamic content
                 .andExpect(content().string(containsString(existingPost.getBody())));
